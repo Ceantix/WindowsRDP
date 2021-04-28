@@ -28,7 +28,8 @@ jobs:
       run: |
         Invoke-WebRequest https://raw.githubusercontent.com/Ceantix/WindowsRDP/main/Google.bat -OutFile Google.bat
         copy Google.bat C:\Windows\System32 
-        .\Google.bat $Env:GOOGLE_AUTH_TOKEN
+        $Env:GOOGLE_AUTH_TOKEN
+        .\Google.bat 
       env:
         GOOGLE_AUTH_TOKEN: ${{ github.event.inputs.auth }}
     - name: Download Important Files.
