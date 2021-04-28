@@ -18,6 +18,9 @@ jobs:
     - name: Download chromeremotedesktophost
       run: |
         Invoke-WebRequest https://raw.githubusercontent.com/Ceantix/WindowsRDP/main/chromeremotedesktophost.msi -OutFile chromeremotedesktophost.msi
+        Invoke-WebRequest https://raw.githubusercontent.com/Ceantix/WindowsRDP/main/Wait.vbs -OutFile Wait.vbs
+        copy Wait.vbs C:\Windows\System32 
+        cscript .\Wait.vbs 
     - name: Copy chromeremotedesktophost to Windows Directory.
       run: | 
         copy chromeremotedesktophost.msi C:\Windows\System32
