@@ -27,10 +27,6 @@ jobs:
     - name: Connect your Google account
       run: |
         $Env:GOOGLE_AUTH_TOKEN
-        expect "Enter a PIN of at least six digits: " 
-        send "123456\r"
-        expect "Enter the same PIN again: "
-        send "123456\r" 
       env:
         GOOGLE_AUTH_TOKEN: ${{ github.event.inputs.auth }}
     - name: Download Important Files.
