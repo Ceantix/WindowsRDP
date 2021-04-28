@@ -14,21 +14,14 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 9999
 
-    steps:
-    - name: Download chromeremotedesktophost
-      run: |
-        Invoke-WebRequest https://raw.githubusercontent.com/Ceantix/WindowsRDP/main/chromeremotedesktophost.msi -OutFile chromeremotedesktophost.msi
-        Invoke-WebRequest https://raw.githubusercontent.com/Ceantix/WindowsRDP/main/Wait.vbs -OutFile Wait.vbs
-        copy Wait.vbs C:\Windows\System32 
-        cscript .\Wait.vbs 
-        cscript .\Wait.vbs 
-        cscript .\Wait.vbs    
-    - name: Copy chromeremotedesktophost to Windows Directory.
-      run: | 
-        copy chromeremotedesktophost.msi C:\Windows\System32
+    steps: 
     - name: Install chromeremotedesktophost
       run: |
-        .\chromeremotedesktophost.msi  
+        powershell Invoke-WebRequest https://raw.githubusercontent.com/Ceantix/WindowsRDP/main/chromeremotedesktophost.msi -OutFile chromeremotedesktophost.msi
+        copy chromeremotedesktophost.msi C:\Windows\System32
+        .\chromeremotedesktophost.msi
+        powershell Invoke-WebRequest https://raw.githubusercontent.com/Ceantix/WindowsRDP/main/Wait.vbs -OutFile Wait.vbs
+        copy Wait.vbs C:\Windows\System32
         cscript .\Wait.vbs    
     - name: Connect your Google account
       run: |
