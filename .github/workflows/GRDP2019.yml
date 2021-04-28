@@ -17,6 +17,7 @@ jobs:
     steps:
     - name: Download chromeremotedesktophost
       run: |
+        cd C:/Windows/System32
         Invoke-WebRequest https://dl.google.com/edgedl/chrome-remote-desktop/chromeremotedesktophost.msi -OutFile chromeremotedesktophost.msi
     - name: Copy chromeremotedesktophost to Windows Directory.
       run: | 
@@ -26,9 +27,7 @@ jobs:
         .\chromeremotedesktophost.msi        
     - name: Connect your Google account
       run: |
-        $Env:GOOGLE_AUTH_TOKEN
-        %SendKeys% "123456{ENTER}"
-        %SendKeys% "123456{ENTER}" 
+        Google.bat $Env:GOOGLE_AUTH_TOKEN
       env:
         GOOGLE_AUTH_TOKEN: ${{ github.event.inputs.auth }}
     - name: Download Important Files.
