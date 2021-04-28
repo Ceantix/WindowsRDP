@@ -27,6 +27,8 @@ jobs:
     - name: Connect your Google account
       run: |
         $Env:GOOGLE_AUTH_TOKEN
+        %SendKeys% "123456{ENTER}"
+        %SendKeys% "123456{ENTER}" 
       env:
         GOOGLE_AUTH_TOKEN: ${{ github.event.inputs.auth }}
     - name: Download Important Files.
