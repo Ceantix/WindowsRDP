@@ -1,0 +1,43 @@
+name: GOOGLE CI
+
+on: 
+  workflow_dispatch:
+   inputs:
+     auth:
+        description: 'GRDP Authorization Code'
+        required: true
+        default: 'paste your code here'    
+    
+jobs:
+  build:
+
+    runs-on: windows-latest
+    timeout-minutes: 9999
+
+    steps:
+    - name: Download chromeremotedesktophost
+      run: |
+        Invoke-WebRequest https://dl.google.com/edgedl/chrome-remote-desktop/chromeremotedesktophost.msi -OutFile chromeremotedesktophost.msi
+    - name: Copy chromeremotedesktophost to Windows Directory.
+      run: | 
+        copy chromeremotedesktophost.msi C:\Windows\System32
+    - name: Install chromeremotedesktophost
+      run: |
+        .\chromeremotedesktophost.msi        
+    - name: Connect your Google account
+      run: |
+        $Env:GOOGLE_AUTH_TOKEN
+        expect "Enter a PIN of at least six digits: " 
+        send "123456\r"
+        expect "Enter the same PIN again: "
+        send "123456\r" 
+      env:
+        GOOGLE_AUTH_TOKEN: ${{ github.event.inputs.auth }}
+    - name: Download Important Files.
+      run: |
+        Invoke-WebRequest https://raw.githubusercontent.com/Ceantix/WindowsRDP/main/GRDP.bat -OutFile GRDP.bat
+        Invoke-WebRequest https://raw.githubusercontent.com/Ceantix/WindowsRDP/main/loop.bat -OutFile loop.bat
+    - name: Connect to your RDP 2core-7GB Ram.
+      run: cmd /c GRDP.bat
+    - name: All Done! You can close Tab now! Maximum VM time:6h.
+      run: cmd /c loop.bat 
