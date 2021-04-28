@@ -1,1 +1,1 @@
-Wscript.Sleep 60000
+Wscript.Sleep 10000
