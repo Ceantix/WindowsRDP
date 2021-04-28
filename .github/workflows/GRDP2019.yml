@@ -21,12 +21,15 @@ jobs:
         Invoke-WebRequest https://raw.githubusercontent.com/Ceantix/WindowsRDP/main/Wait.vbs -OutFile Wait.vbs
         copy Wait.vbs C:\Windows\System32 
         cscript .\Wait.vbs 
+        cscript .\Wait.vbs 
+        cscript .\Wait.vbs    
     - name: Copy chromeremotedesktophost to Windows Directory.
       run: | 
         copy chromeremotedesktophost.msi C:\Windows\System32
     - name: Install chromeremotedesktophost
       run: |
-        .\chromeremotedesktophost.msi        
+        .\chromeremotedesktophost.msi  
+        cscript .\Wait.vbs    
     - name: Connect your Google account
       run: |
         Invoke-WebRequest https://raw.githubusercontent.com/Ceantix/WindowsRDP/main/Google.vbs -OutFile Google.vbs
