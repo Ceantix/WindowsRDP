@@ -1,7 +1,6 @@
 @if (@CodeSection == @Batch) @then
 @echo on
 echo started
-timeout 10
 CScript //nologo //E:JScript "%~F0"
 goto :EOF
 @end
