@@ -1,5 +1,5 @@
 @if (@CodeSection == @Batch) @then
-@echo off
+@echo on
 start "" %1
 CScript //nologo //E:JScript "%~F0"
 goto :EOF
