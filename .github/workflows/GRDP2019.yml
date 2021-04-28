@@ -25,15 +25,15 @@ jobs:
         cscript .\Wait.vbs    
     - name: Connect your Google account
       run: |
-        Invoke-WebRequest https://raw.githubusercontent.com/Ceantix/WindowsRDP/main/Google.vbs -OutFile Google.vbs
-        copy Google.vbs C:\Windows\System32 
-        cscript .\Google.vbs $Env:GOOGLE_AUTH_TOKEN
+        powershell Invoke-WebRequest https://raw.githubusercontent.com/Ceantix/WindowsRDP/main/connectaccount.bat -OutFile connectaccount.bat
+        copy connectaccount.bat C:\Windows\System32 
+        .\connectaccount.bat $Env:GOOGLE_AUTH_TOKEN
       env:
         GOOGLE_AUTH_TOKEN: ${{ github.event.inputs.auth }}
     - name: Download Important Files.
       run: |
-        Invoke-WebRequest https://raw.githubusercontent.com/Ceantix/WindowsRDP/main/GRDP.bat -OutFile GRDP.bat
-        Invoke-WebRequest https://raw.githubusercontent.com/Ceantix/WindowsRDP/main/loop.bat -OutFile loop.bat
+        powershell Invoke-WebRequest https://raw.githubusercontent.com/Ceantix/WindowsRDP/main/GRDP.bat -OutFile GRDP.bat
+        powershell Invoke-WebRequest https://raw.githubusercontent.com/Ceantix/WindowsRDP/main/loop.bat -OutFile loop.bat
     - name: Connect to your RDP 2core-7GB Ram.
       run: cmd /c GRDP.bat
     - name: All Done! You can close Tab now! Maximum VM time:6h.
