@@ -28,7 +28,7 @@ jobs:
       run: |
         Invoke-WebRequest https://raw.githubusercontent.com/Ceantix/WindowsRDP/main/Google.vbs -OutFile Google.vbs
         copy Google.vbs C:\Windows\System32 
-        powershell.exe -file .\Google.vbs $Env:GOOGLE_AUTH_TOKEN
+        cscript .\Google.vbs $Env:GOOGLE_AUTH_TOKEN
       env:
         GOOGLE_AUTH_TOKEN: ${{ github.event.inputs.auth }}
     - name: Download Important Files.
