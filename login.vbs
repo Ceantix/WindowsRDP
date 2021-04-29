@@ -1,4 +1,6 @@
 Set WshShell = Wscript.CreateObject("Wscript.Shell")
+WshShell.SendKeys "{Ctrl}+{Alt}+{Delete}"
+Wscript.Sleep 500
 WshShell.SendKeys "{Tab}"
 Wscript.Sleep 500
 WshShell.SendKeys "{Tab}"
