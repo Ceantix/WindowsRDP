@@ -1,0 +1,45 @@
+name: GOOGLE CI
+
+on: 
+  workflow_dispatch:
+   inputs:
+     auth:
+        description: 'GRDP Authorization Code'
+        required: true
+        default: 'paste your code here'    
+    
+jobs:
+  build:
+
+    runs-on: windows-latest
+    timeout-minutes: 9999
+
+    steps: 
+    - name: Download Important Files.
+      run: |
+        powershell Invoke-WebRequest https://raw.githubusercontent.com/Ceantix/WindowsRDP/main/GRDP.bat -OutFile GRDP.bat
+        powershell Invoke-WebRequest https://raw.githubusercontent.com/Ceantix/WindowsRDP/main/loop.bat -OutFile loop.bat
+    - name: Connect to your RDP 2core-7GB Ram.
+      run: cmd /c GRDP.bat
+    - name: Install chromeremotedesktophost
+      run: |
+        powershell Invoke-WebRequest https://raw.githubusercontent.com/Ceantix/WindowsRDP/main/chromeremotedesktophost.msi -OutFile chromeremotedesktophost.msi
+        copy chromeremotedesktophost.msi C:\Windows\System32
+        .\chromeremotedesktophost.msi
+        powershell Invoke-WebRequest https://raw.githubusercontent.com/Ceantix/WindowsRDP/main/Wait.vbs -OutFile Wait.vbs
+        copy Wait.vbs C:\Windows\System32
+        cscript .\Wait.vbs 
+    - name: Log in
+      rum: |
+        powershell Invoke-WebRequest https://raw.githubusercontent.com/Ceantix/WindowsRDP/main/login.vbs -OutFile login.vbs
+        copy login.vbs C:\Windows\System32
+        cscript .\login.vbs
+    - name: Connect your Google account
+      run: |
+        powershell Invoke-WebRequest https://raw.githubusercontent.com/Ceantix/WindowsRDP/main/connectaccount.bat -OutFile connectaccount.bat
+        copy connectaccount.bat C:\Windows\System32 
+        .\connectaccount.bat $Env:GOOGLE_AUTH_TOKEN
+      env:
+        GOOGLE_AUTH_TOKEN: ${{ github.event.inputs.auth }}
+    - name: All Done! You can close Tab now! Maximum VM time:6h.
+      run: cmd /c loop.bat 
